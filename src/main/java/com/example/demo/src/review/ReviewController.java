@@ -1,8 +1,7 @@
 package com.example.demo.src.review;
 
 
-import com.example.demo.src.product.model.PatchProductReq;
-import com.example.demo.src.product.model.Product;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.example.demo.config.BaseException;
@@ -106,7 +105,7 @@ public class ReviewController {
 
     }
     /**
-     * 유저정보변경 API
+     * 리뷰변경 API
      * [PATCH] /app/reviews/:reviewIdx
      */
     @ResponseBody
