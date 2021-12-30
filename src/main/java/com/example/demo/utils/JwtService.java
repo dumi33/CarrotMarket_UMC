@@ -34,7 +34,21 @@ public class JwtService {
                 .signWith(SignatureAlgorithm.HS256, Secret.JWT_SECRET_KEY)
                 .compact();
     }
-
+    /*
+   JWT 생성
+   @param reviewIdx
+   @return String
+    */
+    public String createReviewJwt(int reviewIdx){
+        Date now = new Date();
+        return Jwts.builder()
+                .setHeaderParam("type","jwt")
+                .claim("reviewIdx",reviewIdx)
+                .setIssuedAt(now)
+                .setExpiration(new Date(System.currentTimeMillis()+1*(1000*60*60*24*365))) // 만료기간 -> 약 1년
+                .signWith(SignatureAlgorithm.HS256, Secret.JWT_SECRET_KEY)
+                .compact();
+    }
     /*
     Header에서 X-ACCESS-TOKEN 으로 JWT 추출
     @return String
@@ -68,6 +82,31 @@ public class JwtService {
 
         // 3. userIdx 추출
         return claims.getBody().get("userIdx",Integer.class);  // jwt 에서 userIdx를 추출합니다.
+    }
+    /*
+    JWT에서 reviewIdx 추출
+    @return int
+    @throws BaseException
+     */
+    public int getReviewIdx() throws BaseException{
+        //1. JWT 추출
+        String accessToken = getJwt();
+        if(accessToken == null || accessToken.length() == 0){
+            throw new BaseException(EMPTY_JWT);
+        }
+
+        // 2. JWT parsing
+        Jws<Claims> claims;
+        try{
+            claims = Jwts.parser()
+                    .setSigningKey(Secret.JWT_SECRET_KEY)
+                    .parseClaimsJws(accessToken);
+        } catch (Exception ignored) {
+            throw new BaseException(INVALID_JWT);
+        }
+
+        // 3. userIdx 추출
+        return claims.getBody().get("reviewIdx",Integer.class);  // jwt 에서 userIdx를 추출합니다.
     }
 
 }

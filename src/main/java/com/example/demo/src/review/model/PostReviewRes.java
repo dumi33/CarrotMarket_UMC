@@ -15,5 +15,6 @@ import lombok.Setter;
 
 public class PostReviewRes {
     private int reviewIdx;
+    private String jwt;
 }
 

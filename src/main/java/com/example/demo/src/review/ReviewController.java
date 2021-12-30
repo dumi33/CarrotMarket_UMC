@@ -113,17 +113,17 @@ public class ReviewController {
     // Path-variable
     public BaseResponse<String> modifyComment(@PathVariable("reviewIdx") int reviewIdx, @RequestBody Review review) {
         try {
-/**
- *********** 해당 부분은 7주차 - JWT 수업 후 주석해체 해주세요!  ****************
+
+// *********** 해당 부분은 7주차 - JWT 수업 후 주석해체 해주세요!  ****************
  //jwt에서 idx 추출.
- int userIdxByJwt = jwtService.getUserIdx();
- //userIdx와 접근한 유저가 같은지 확인
- if(userIdx != userIdxByJwt){
- return new BaseResponse<>(INVALID_USER_JWT);
+ int reviewIdxByJwt = jwtService.getReviewIdx();
+ //userIdx와 리뷰의 idx가 같은지 확인
+ if(reviewIdx != reviewIdxByJwt){
+ return new BaseResponse<>(INVALID_REVIEW_JWT);
  }
  //같다면 유저네임 변경
- **************************************************************************
- */
+// **************************************************************************
+
             PatchReviewReq patchReviewReq = new PatchReviewReq(reviewIdx, review.getComment());
             reviewService.modifyComment(patchReviewReq);
 
