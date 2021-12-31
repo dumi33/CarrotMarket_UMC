@@ -127,6 +127,20 @@ public class UserDao {
                         rs.getString("address")), // RowMapper(위의 링크 참조): 원하는 결과값 형태로 받기
                 getUsersByNicknameParams); // 해당 닉네임을 갖는 모든 User 정보를 얻기 위해 jdbcTemplate 함수(Query, 객체 매핑 정보, Params)의 결과 반환
     }
+    // 해당 nickname을 갖는 유저들의 정보 조회
+    public List<GetUserRes> getUsersPaging(int pageNo, int pageSize) {
+        String getUsersPagingQuery = "select * from User limit ? offset ? "; // 해당 닉네임을 만족하는 유저를 조회하는 쿼리문
+        int getUsersByPagingNOParams = pageNo;
+        int getUsersByPagingSizeParams = pageSize;
+        return this.jdbcTemplate.query(getUsersPagingQuery,
+                (rs, rowNum) -> new GetUserRes(
+                        rs.getInt("userIdx"),
+                        rs.getString("nickname"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("address")), // RowMapper(위의 링크 참조): 원하는 결과값 형태로 받기
+                getUsersByPagingNOParams,getUsersByPagingSizeParams); // 해당 닉네임을 갖는 모든 User 정보를 얻기 위해 jdbcTemplate 함수(Query, 객체 매핑 정보, Params)의 결과 반환
+    }
     // 해당 address을 갖는 유저들의 정보 조회
     public List<GetUserRes> getUsersByAddress(String address) {
         String getUsersByAddressQuery = "select * from User where address =?"; // 해당 주소을 만족하는 유저를 조회하는 쿼리문

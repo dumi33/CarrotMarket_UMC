@@ -92,6 +92,15 @@ public class UserProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+    // 해당 pageNo, pageSize을 갖는 User들의 정보 조회
+    public List<GetUserRes> getUsersPaging(int pageNo, int pageSize) throws BaseException {
+        try {
+            List<GetUserRes> getUsersRes = userDao.getUsersPaging(pageNo,pageSize);
+            return getUsersRes;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
     // 해당 address을 갖는 User들의 정보 조회
     public List<GetUserRes> getUsersByAddress(String address) throws BaseException {
         try {
