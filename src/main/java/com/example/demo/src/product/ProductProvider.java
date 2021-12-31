@@ -56,4 +56,14 @@ public class ProductProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+    // 해당 pageNo. pageSize을 갖는 products들의 정보 조회
+
+    public List<GetProductRes> getProductsPaging(int pageNo, int pageSize) throws BaseException {
+        try {
+            List<GetProductRes> getProductRes = productDao.getProductsPaging(pageNo,pageSize);
+            return getProductRes;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

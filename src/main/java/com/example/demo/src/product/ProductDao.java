@@ -82,7 +82,21 @@ public class ProductDao {
                         rs.getString("productDetail")), // RowMapper(위의 링크 참조): 원하는 결과값 형태로 받기
                 getProductsByProductNameParams); // 해당 닉네임을 갖는 모든 User 정보를 얻기 위해 jdbcTemplate 함수(Query, 객체 매핑 정보, Params)의 결과 반환
     }
-
+    // 해당 Produt의 page을 갖는 유저들의 정보 조회
+    public List<GetProductRes> getProductsPaging(int pageNo, int pageSize) {
+        String getProductsPagingQuery = "select * from Product limit ? offset ? "; // 해당 닉네임을 만족하는 유저를 조회하는 쿼리문
+        int getProductsPagingNoParams = pageNo;
+        int getProductsPagingSizeParams = pageSize;
+        return this.jdbcTemplate.query(getProductsPagingQuery,
+                (rs, rowNum) -> new GetProductRes(
+                        rs.getInt("productIdx"),
+                        rs.getInt("userIdx"),
+                        rs.getInt("categoryIdx"),
+                        rs.getString("productName"),
+                        rs.getInt("price"),
+                        rs.getString("productDetail")), // RowMapper(위의 링크 참조): 원하는 결과값 형태로 받기
+                getProductsPagingNoParams,getProductsPagingSizeParams ); // 해당 닉네임을 갖는 모든 User 정보를 얻기 위해 jdbcTemplate 함수(Query, 객체 매핑 정보, Params)의 결과 반환
+    }
 
     // 상품등록
     public int createProduct(PostProductReq postProductReq) {

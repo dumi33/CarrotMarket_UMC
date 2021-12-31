@@ -34,7 +34,7 @@ public enum BaseResponseStatus {
 
     //[POST] /products
     POST_PRODUCT_EMPTY_DETAIL(false,2019,"상품의 상세정보를 입력해주세요."),
-
+    EMPTY_PAGENO_OR_PAGESIZE(false,2020,"출력할 상품 목록의 사이즈 또는 번호가 입력되지않았습니다"),
 
     /**
      * 3000 : Response 오류
