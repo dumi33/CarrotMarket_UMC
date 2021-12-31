@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.sql.DataSource;
 import static com.example.demo.config.BaseResponseStatus.*;
 
@@ -47,6 +49,7 @@ public class ReviewService {
     }
     // ******************************************************************************
     // 리뷰 작성(POST)
+    @Transactional
     public PostReviewRes createReview(PostReviewReq postReviewReq) throws BaseException {
 
         try {
@@ -63,6 +66,7 @@ public class ReviewService {
         }
     }
     // 상품정보 수정(Patch)
+    @Transactional
     public void modifyComment(PatchReviewReq patchReviewReq) throws BaseException {
         try {
             int result = reviewDao.modifyComment(patchReviewReq); // 해당 과정이 무사히 수행되면 True(1), 그렇지 않으면 False(0)입니다.

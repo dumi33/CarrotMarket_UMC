@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.sql.DataSource;
 import static com.example.demo.config.BaseResponseStatus.*;
 
@@ -39,6 +41,7 @@ public class ChatingService {
 
     // ******************************************************************************
     // 채팅등록(POST)
+    @Transactional
     public PostChatingRes createChating(PostChatingReq postChatingReq) throws BaseException {
         // 중복 확인: 해당 이메일을 가진 유저가 있는지 확인합니다. 중복될 경우, 에러 메시지를 보냅니다.
         try {
